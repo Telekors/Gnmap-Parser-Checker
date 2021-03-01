@@ -1,7 +1,7 @@
 # Gnmap-Parser-Checker
 
 ## About
-This is a simple script designed to be used alongside [jasonjfranks] Gnmap-Parser.sh script `https://github.com/jasonjfrank/gnmap-parser`. This script will check to see if shodan sees any hosts in your scope have open ports that you might have missed during your nmap enumeration.
+This is a simple script designed to be used alongside [jasonjfranks] Gnmap-Parser.sh script `https://github.com/jasonjfrank/gnmap-parser`. This script will check to see if shodan sees any hosts in your scope that have open ports that you might have missed during your nmap enumeration.
 
 ## Install
 1. Clone into directory: `https://github.com/Telekors/Gnmap-Parser-Checker.git`
