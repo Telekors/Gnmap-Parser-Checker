@@ -3,7 +3,7 @@ from netaddr import IPNetwork
 import sys
 
 def main(scope_file, tcp_services_file):
-api = Shodan('')
+api = Shodan('<API KEY GOES HERE>')
 scope = open(scope_file,"r")
 for scope_line in scope:
        try:
