@@ -9,4 +9,4 @@ This is a simple script designed to be used alongside [jasonjfranks] Gnmap-Parse
 3. Open python file and insert Shodan API Key
 
 ## Run
-* `python Gnmap-Parser-Checker.py <Path_To_Scope> <Path_To_Port-Matrix.csv>`
+* `python Gnmap-Parser-Checker.py <Path_To_Scope> <Path_To_Port-Matrix.csv>` 
