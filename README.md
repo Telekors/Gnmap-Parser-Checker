@@ -19,10 +19,6 @@ This is a simple script designed to be used alongside [jasonjfranks] Gnmap-Parse
 * -m FILE, --matrix=FILE TCP-Services-Matrix.csv File
 * -o FILE, --output=FILE Your output file location
 
-## Credit: 
-* [KyleEvers] - https://github.com/KyleEvers (Thanks for showing me the light of docopt)
-* [jasonjfrank] - https://github.com/jasonjfrank/gnmap-parser (Creator of gnmap-parser)
-
 ### Created by: 
 * [Telekors] - https://github.com/Telekors
 
