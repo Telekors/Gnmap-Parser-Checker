@@ -1,9 +1,43 @@
+"""
+ ██████╗ ███╗   ██╗███╗   ███╗ █████╗ ██████╗     ██████╗  █████╗ ██████╗ ███████╗███████╗██████╗      ██████╗██╗  ██╗███████╗ ██████╗██╗  ██╗███████╗██████╗ 
+██╔════╝ ████╗  ██║████╗ ████║██╔══██╗██╔══██╗    ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗    ██╔════╝██║  ██║██╔════╝██╔════╝██║ ██╔╝██╔════╝██╔══██╗
+██║  ███╗██╔██╗ ██║██╔████╔██║███████║██████╔╝    ██████╔╝███████║██████╔╝███████╗█████╗  ██████╔╝    ██║     ███████║█████╗  ██║     █████╔╝ █████╗  ██████╔╝
+██║   ██║██║╚██╗██║██║╚██╔╝██║██╔══██║██╔═══╝     ██╔═══╝ ██╔══██║██╔══██╗╚════██║██╔══╝  ██╔══██╗    ██║     ██╔══██║██╔══╝  ██║     ██╔═██╗ ██╔══╝  ██╔══██╗
+╚██████╔╝██║ ╚████║██║ ╚═╝ ██║██║  ██║██║         ██║     ██║  ██║██║  ██║███████║███████╗██║  ██║    ╚██████╗██║  ██║███████╗╚██████╗██║  ██╗███████╗██║  ██║
+ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝         ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝     ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+Usage:
+    Gnmap-Parser-Checker.py (-k FILE -s FILE -m FILE) [-o FILE]
+    Gnmap-Parser-Checker.py scan (-k FILE -s FILE -m FILE) [-o FILE]
+
+Options:
+    -h, --help             Prints this Message
+    -s FILE, --scope=FILE  Initial Nmap Scope File (-iL)
+    -k FILE, --key=FILE    Shodan API Key File
+    -m FILE, --matrix=FILE TCP-Services-Matrix.csv File
+    -o FILE, --output=FILE Your output file location
+"""
+
+#Created by: [Telekors] - https://github.com/Telekors
+
+#Credit: 
+#    [KyleEvers] - https://github.com/KyleEvers (Thanks for showing me the light of docopt)
+#    [jasonjfrank] - https://github.com/jasonjfrank/gnmap-parser (Creator of gnmap-parser)
+
+
+
 from shodan import Shodan
 from netaddr import IPNetwork
+from docopt import docopt
 import sys
+import socket
 
-def main(scope_file, tcp_services_file):
-        api = Shodan('<API KEY GOES HERE>')
+def main(scope_file, tcp_services_file, api_file, outfile):
+        missing = []
+        f = open(api_file,"r")
+        apikey = (f.read())
+        f.close()
+        api = Shodan(str(apikey.strip()))
         scope = open(scope_file,"r")
         for scope_line in scope:
                 try:
@@ -29,7 +63,35 @@ def main(scope_file, tcp_services_file):
                                                         debug_print ("match")
                                                         break
                                         else:
-                                                print (full_string + " - Missing")
+                                            if arguments["scan"] is True:
+                                                if (nmap_scan(str(ip),str(port))) is True:
+                                                    missing.append(str(ip) + "," + str(port))
+                                            else:
+                                                missing.append(str(ip) + "," + str(port))
+
+        print ("Your matrix file is missing: ")
+        print ("=============================")
+        print("IP, Port")
+        for ip_port in missing:
+            print (ip_port)
+
+        if outfile is not None:
+            f = open(outfile, "w")
+            f.write("IP Address, Port\n")
+            for ip_port in missing:
+                f.write(ip_port + "\n")
+            f.close()
+
+
+def nmap_scan(ip,port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket.setdefaulttimeout(1)
+    result = s.connect_ex((ip,int(port)))
+    if result ==0:
+        s.close()
+        return True
+    s.close()
+    return False
 
 def debug_print(input):
         #print(input)
@@ -38,12 +100,7 @@ def debug_print(input):
 def host_print(ipinfo):
         debug_print(ipinfo['ip_str'] + ": " + "".join(str(ipinfo['ports'])))
 
+
 if __name__ == "__main__":
-        try:
-                scope_file = sys.argv[1].strip()
-                tcp_services_file = sys.argv[2].strip()
-        except IndexError:
-                print "Check My Work! (Scope File is single ip or cidr range per line)"
-                print "[-] Usage: %s </Full_Path/To_Scope> </Full_Path/Parsed-Results/Port-Matrix/TCP-Services-Matrix.csv>" % sys.argv[0]
-                sys.exit()
-        main(scope_file, tcp_services_file)
+        arguments = docopt(__doc__, version='Gnmap Parser Checker 1.0')
+        main(arguments["--scope"], arguments["--matrix"], arguments["--key"], arguments["--output"])
