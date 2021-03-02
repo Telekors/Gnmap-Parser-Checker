@@ -1,3 +1,4 @@
+from shodan import Shodan
 from netaddr import IPNetwork
 import sys
 
