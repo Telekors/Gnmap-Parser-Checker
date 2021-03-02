@@ -9,8 +9,8 @@ This is a simple script designed to be used alongside [jasonjfranks] Gnmap-Parse
 3. Open python file and insert Shodan API Key
 
 ## Usage:
-`Gnmap-Parser-Checker.py (-k FILE -s FILE -m FILE) [-o FILE]`
-`Gnmap-Parser-Checker.py scan (-k FILE -s FILE -m FILE) [-o FILE]`
+* `Gnmap-Parser-Checker.py (-k FILE -s FILE -m FILE) [-o FILE]`
+* `Gnmap-Parser-Checker.py scan (-k FILE -s FILE -m FILE) [-o FILE]`
 
 ## Options:
 * -h, --help             Prints this Message
