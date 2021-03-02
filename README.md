@@ -13,8 +13,8 @@ This is a simple script designed to be used alongside [jasonjfranks] Gnmap-Parse
 * `Gnmap-Parser-Checker.py scan (-k FILE -s FILE -m FILE) [-o FILE]`
 
 ## Options:
-* -h, --help             Prints this Message
-* -s FILE, --scope=FILE  Initial Nmap Scope File (-iL)
+* -h, --help             Prints help message
+* -s FILE, --scope=FILE  Initial Nmap Scope File (ex. -iL)
 * -k FILE, --key=FILE    Shodan API Key File
 * -m FILE, --matrix=FILE TCP-Services-Matrix.csv File
 * -o FILE, --output=FILE Your output file location
