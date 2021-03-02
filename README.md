@@ -23,8 +23,9 @@ This is a simple script designed to be used alongside [jasonjfranks] Gnmap-Parse
 * [KyleEvers] - https://github.com/KyleEvers (Thanks for showing me the light of docopt)
 * [jasonjfrank] - https://github.com/jasonjfrank/gnmap-parser (Creator of gnmap-parser)
 
-## Created by: [Telekors] - https://github.com/Telekors
+### Created by: 
+* [Telekors] - https://github.com/Telekors
 
-## Credit: 
+### Credit: 
 * [KyleEvers] - https://github.com/KyleEvers (Thanks for showing me the light of docopt)
 * [jasonjfrank] - https://github.com/jasonjfrank/gnmap-parser (Creator of gnmap-parser)
