@@ -55,7 +55,7 @@ def main(scope_file, tcp_services_file, api_file, outfile):
                                 continue
                         host_print(ipinfo)
                         for port in ipinfo['ports']:
-                                full_string = (str(ip) + ",TCP," + str(port))
+                                full_string = (str(port) + ",TCP," + str(ip))
                                 debug_print (full_string)
                                 with open(tcp_services_file, "r+") as file:
                                         for line in file:
